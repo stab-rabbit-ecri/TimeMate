@@ -1,16 +1,24 @@
 import React, { Component, Fragment, useState } from 'react';
-import LoginButton from './LoginButton.jsx';
+// import LoginButton from './LoginButton.jsx';
 import UserInput from './UserInput.jsx';
 
-class LoginPage extends Component {
-  render() {
-    return (
-      <section id='loginPageBox'>
-        <UserInput authorize={this.props.authorize} />
-      </section>
-    );
-  }
-}
+const LoginPage = (props) => {
+  return (
+    <div id='loginPageBox'>
+      <UserInput authorize={props.authorize} />
+    </div>
+  );
+};
+
+// class LoginPage extends Component {
+//   render() {
+//     return (
+//       <section id='loginPageBox'>
+//         <UserInput authorize={this.props.authorize} />
+//       </section>
+//     );
+//   }
+// }
 
 export default LoginPage;
 

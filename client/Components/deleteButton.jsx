@@ -7,7 +7,7 @@ import React, { Component, useState } from 'react';
 //I ended up implementing the use of hooks in this code
 
 const deleteButton = function App() {
-  const [updated, setUpdated] = useState('');
+  const [updated, setUpdated] = useState(''); // => [  updated  ,    ]
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
       setUpdated(event.target.value);
