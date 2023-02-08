@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import EmployeeRow from './EmployeeRow.jsx';
 import deleteButton from './deleteButton.jsx';
 import LogOutButton from './logOutButton.jsx';

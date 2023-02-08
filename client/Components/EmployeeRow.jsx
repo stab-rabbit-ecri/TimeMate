@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const EmployeeRow = () => {
   const [employees, setEmployees] = useState([]);
@@ -12,7 +12,7 @@ const EmployeeRow = () => {
   //   body: JSON.stringify({employee, employeeID, hoursWorked}), //I don't know the names of the properties we want, but we want employee name, ID, and hours Worked
   //   }
   useEffect(() => {
-    fetch('http://localhost:8080/emphours/users')
+    fetch('/emphours/users')
       .then((response) => {
         return response.json();
       })

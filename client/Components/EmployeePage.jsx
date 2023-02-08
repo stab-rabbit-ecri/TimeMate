@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ClockIn from './ClockIn.jsx';
 import ClockOut from './ClockOut.jsx';
 import LogOutButton from './logOutButton.jsx';
@@ -54,106 +54,106 @@ const EmployeePage = (props) => {
 
     return { time, date };
   };
-};
 
-const revealClockProof = (display = 'none') => {
-  const clockProof = document.getElementById('clockProof');
+  const revealClockProof = (display = 'none') => {
+    const clockProof = document.getElementById('clockProof');
 
-  clockProof.style.display = display;
+    clockProof.style.display = display;
 
-  return;
-};
+    return;
+  };
 
-const clockInOut = (date) => {
-  // August 19, 1975 23:15:30
-  // { time: '11:31:06', date: '2023-02-06T16:31:06.474Z', emp_id: 9 }
-  console.log(action);
-  if (currentAction === 'clocked in') {
-    console.log('sending fetch request');
-    fetch('/clockin', {
+  const clockInOut = (date) => {
+    // August 19, 1975 23:15:30
+    // { time: '11:31:06', date: '2023-02-06T16:31:06.474Z', emp_id: 9 }
+    console.log(action);
+    if (currentAction === 'clocked in') {
+      console.log('sending fetch request');
+      fetch('/clockin', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          time: currentTime,
+          date: date,
+          emp_id: props.empId,
+        }),
+      })
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          // console.log('data', data);
+          setEntryId(data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else if (currentAction === 'clocked out') {
+      console.log('entry_id', entry_id);
+      fetch('/clockout', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          time: currentTime,
+          date: date,
+          entry_id: entryId,
+        }),
+      })
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
+  useEffect(() => {
+    console.log('emp id', props.empId);
+    fetch('/currentemphours', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        time: currentTime,
-        date: date,
-        emp_id: props.empId,
-      }),
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
+      body: JSON.stringify({ emp_id: props.empId }),
     })
       .then((response) => {
+        console.log('response', response);
         return response.json();
       })
       .then((data) => {
-        // console.log('data', data);
-        setEntryId(data);
+        console.log('data', data);
+        setTotalHours(data.total);
       })
       .catch((err) => {
         console.log(err);
       });
-  } else if (currentAction === 'clocked out') {
-    console.log('entry_id', entry_id);
-    fetch('/clockout', {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        time: currentTime,
-        date: date,
-        entry_id: entryId,
-      }),
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-};
+  }, []);
 
-useEffect(() => {
-  console.log('emp id', props.empId);
-  fetch('/currentemphours', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-    },
-    body: JSON.stringify({ emp_id: props.empId }),
-  })
-    .then((response) => {
-      console.log('response', response);
-      return response.json();
-    })
-    .then((data) => {
-      console.log('data', data);
-      setTotalHours(data.total);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}, []);
-
-return (
-  <section id='employeePageBox'>
-    <section id='welcomeMessage'>Hello, {props.firstName}</section>
-    <section id='hoursWorked'>
-      You've worked {props.totalHours} hours this week
+  return (
+    <section id='employeePageBox'>
+      <section id='welcomeMessage'>Hello, {props.firstName}</section>
+      <section id='hoursWorked'>
+        You've worked {props.totalHours} hours this week
+      </section>
+      <section id='clockProofContainer'>
+        {/* <section id='clockProof'>You {this.state.currentAction} at {this.state.currentTime}</section> */}
+        <section id='clockProof'>{props.currentMessage}</section>
+      </section>
+      <section id='timeButtonParent'>
+        <ClockIn toggleClockIn={toggleClockIn} />
+        <ClockOut toggleClockIn={toggleClockIn} />
+      </section>
+      <section>
+        <LogOutButton logOut={props.logOut} />
+      </section>
     </section>
-    <section id='clockProofContainer'>
-      {/* <section id='clockProof'>You {this.state.currentAction} at {this.state.currentTime}</section> */}
-      <section id='clockProof'>{currentMessage}</section>
-    </section>
-    <section id='timeButtonParent'>
-      <ClockIn toggleClockIn={toggleClockIn} />
-      <ClockOut toggleClockIn={toggleClockIn} />
-    </section>
-    <section>
-      <LogOutButton logOut={props.logOut} />
-    </section>
-  </section>
-);
+  );
+}
 
 // on component did mount, query the database to get hours worked that week
 
