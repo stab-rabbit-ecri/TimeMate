@@ -37,7 +37,6 @@ class App extends Component {
   checkCredentials() {
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
-
     fetch('http://localhost:8080/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
