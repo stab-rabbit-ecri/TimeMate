@@ -18,10 +18,16 @@ app.use(cors());
 //post request is sent to /login
 app.post('/login', employeeController.authorize, (req,res) => {
   return res.status(200).json(res.locals.user);
-})
+});
 
 //OTHER ROUTES
+app.post('/clockin', employeeController.getDate, employeeController.clockIn, (req, res) => {
+  return res.status(200).json(res.locals.entry_id);
+});
 
+app.post('/clockout', employeeController.clockOut, (req,res) => {
+  return res.status(200).json(res.locals.user);
+})
 /**
  *
  *
