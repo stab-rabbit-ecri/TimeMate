@@ -1,4 +1,4 @@
-import React, { Component, Fragment, useState } from 'react';
+import React, { Fragment, useState } from 'react';
 // import LoginButton from './LoginButton.jsx';
 import UserInput from './UserInput.jsx';
 

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import LoginPage from './Components/LoginPage.jsx';
 import EmployeePage from './Components/EmployeePage.jsx';
 import './public/styles.css';
