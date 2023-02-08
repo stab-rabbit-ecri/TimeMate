@@ -36,20 +36,19 @@ Date.prototype.getWeek = function (dowOffset) {
 
 
 employeeController.getDate = (req, res, next) => {
-    const { date, emp_id, time } = req.body;
-
+  const { date, emp_id, time } = req.body;
 
   const dateStr = date.split('T')[0];
 
   const dateArr = dateStr.split('-');
 
-  console.log(dateArr);
 
   const numDate = new Date(
     Number(dateArr[0]),
     Number(dateArr[1]) - 1,
     Number(dateArr[2])
   );
+
 
   const weekNumber = numDate.getWeek();
 
@@ -62,11 +61,8 @@ employeeController.getDate = (req, res, next) => {
 
 employeeController.clockIn = (req, res, next) => {
     const emp_id = res.locals.emp_id;
-    const timestamp = res.locals.timestamp;
-    console.log('timestamp', timestamp);
+    const timestamp = new Date(res.locals.timestamp);
     const week = res.locals.week;
-    const time = new Date(timestamp)
-    //console.log('specific time at timestamp:', ((time.getTime() / 1000)/3600))
     //sequel query to insert that info into timesheet table
     //sequel query to get entry_id of row just created
     //save entry_id to res.locals.entry_id
@@ -76,13 +72,10 @@ employeeController.clockIn = (req, res, next) => {
 
     db.query(queryText, values)
     .then((response) => {
-        //console.log(response);
-        //console.log('this is the entry id:', response.rows[0].entry_id);
         res.locals.entry_id = response.rows[0].entry_id;
         const queryText2 = 'SELECT clock_in FROM timesheet;';
         db.query(queryText2)
         .then((response) => {
-            console.log('looking for clock_in', response.rows);
         })
         .catch((err) => {
             return next({
@@ -107,9 +100,11 @@ employeeController.clockOut = (req, res, next) => {
   .then((response) => {
     
     function timeDifference(date1, date2) {
+        console.log('time2', date2.getTime());
+        console.log('time1', date1.getTime());
         let diff = (date2.getTime() - date1.getTime()) / 1000;
         diff /= 3600;
-        return Math.abs(Math.round(diff));
+        return Math.round(diff);
     }
       
     const timeIn = response.rows[0].clock_in
@@ -150,11 +145,9 @@ employeeController.authorize = (req, res, next) => {
     db.query(queryText, values)
     // .then either return success or return error
     .then((response) => {
-        //console.log(response);
         if (response.rows.length) {
           res.locals.user = response.rows[0]
           res.locals.user.Success = response.rows[0].employee_type
-          //console.log(res.locals.user);
           return next()
         } else {
         // frontend will check if response.rows is empty
@@ -169,4 +162,36 @@ employeeController.authorize = (req, res, next) => {
         })
     })
 }
+
+employeeController.getHours = (req, res, next) => {
+  const emp_id = req.body.emp_id;
+  const queryText = 'SELECT sum(hours) FROM timesheet WHERE emp_id=($1) AND week = 6;';
+  const values = [emp_id];
+  db.query(queryText, values)
+  .then((response) =>{
+    console.log('this is the response from getHours:', response.rows)
+    res.locals.hours = response.rows[0].sum
+    return next()
+  })
+  .catch((err) => {
+    return next({
+        message: 'err in employee controller getHours',
+    })
+  })
+}
+
+employeeController.getUsers = (req, res, next) => {
+    const queryText = 'SELECT ts.emp_id, ae.first_name, ae.last_name, SUM(hours) as hours_worked FROM timesheet as ts INNER JOIN all_employees AS ae ON ts.emp_id=ae.emp_id GROUP BY ae.first_name, ts.emp_id, ae.last_name;';
+    db.query(queryText)
+    .then((response) => {
+        res.locals.employees = response.rows;
+        return next();
+    })
+    .catch((err) => {
+        return next({
+            message: 'err in getUsers',
+        })
+    })
+}
+
 module.exports = employeeController;
