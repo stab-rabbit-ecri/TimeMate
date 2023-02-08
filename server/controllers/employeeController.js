@@ -18,6 +18,7 @@ employeeController.authorize = (req, res, next) => {
     db.query(queryText, values)
     // .then either return success or return error
     .then((response) => {
+        console.log(response);
         if (response.rows.length) {
           res.locals.user = response.rows[0]
           res.locals.user.Success = response.rows[0].employee_type
