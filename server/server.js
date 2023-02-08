@@ -25,8 +25,8 @@ app.post('/clockin', employeeController.getDate, employeeController.clockIn, (re
   return res.status(200).json(res.locals.entry_id);
 });
 
-app.post('/clockout', employeeController.clockOut, (req,res) => {
-  return res.status(200).json(res.locals.user);
+app.patch('/clockout', employeeController.getDate, employeeController.clockOut, (req,res) => {
+  return res.status(200);
 })
 /**
  *

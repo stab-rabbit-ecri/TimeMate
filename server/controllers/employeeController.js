@@ -99,7 +99,39 @@ employeeController.clockIn = (req, res, next) => {
 }
 
 employeeController.clockOut = (req, res, next) => {
+  const entry_id = req.body.entry_id;
+  const queryText = 'SELECT clock_in FROM timesheet WHERE entry_id = ($1);';
+  const values = [entry_id];
 
+  db.query(queryText, values)
+  .then((response) => {
+    
+    function timeDifference(date1, date2) {
+        let diff = (date2.getTime() - date1.getTime()) / 1000;
+        diff /= 3600;
+        return Math.abs(Math.round(diff));
+    }
+      
+    const timeIn = response.rows[0].clock_in
+    const timeOut = new Date(res.locals.timestamp);
+    const hours = timeDifference(timeIn, timeOut);
+    const addToTable = 'UPDATE timesheet SET clock_out = ($1), hours = ($2) WHERE entry_id = ($3);';
+    const newValues = [timeOut, hours, entry_id];
+    db.query(addToTable, newValues)
+    .then((response) => {
+        return next();
+    })
+    .catch((err) => {
+        return next({
+            message: 'err in second db query of employee controller clock out'
+        })
+    })
+  })
+  .catch((err) => {
+    return next({
+        message: 'err in employee controller clock out'
+    })
+  })
 }
 
 //select employee_type from all_employees where username='workermcgee' and password='worker'
