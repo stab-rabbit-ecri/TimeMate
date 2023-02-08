@@ -4,6 +4,7 @@ const { login } = employeeController;
 const router = express.Router();
 
 // when a post request is sent to /login, authenticate login credentials
-router.post('/login', login);
+// router.post('/login', login);
 
 module.exports = router;
+``
