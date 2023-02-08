@@ -13,6 +13,14 @@ module.exports = {
       template: path.resolve(__dirname, 'client', 'index.html'),
     }),
   ],
+  devServer: {
+    proxy: {
+      '/login': {
+        target: 'http://localhost:3000/',
+        secure: false,
+      },
+    },
+  },
   module: {
     rules: [
       {
@@ -32,3 +40,5 @@ module.exports = {
     ],
   },
 };
+
+

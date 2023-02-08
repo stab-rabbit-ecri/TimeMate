@@ -11,6 +11,7 @@ class EmployeePage extends Component {
      *       it is state that is specific to only this component
      *       and does not need to be accessible to parent and / or
      *       sibling components.
+     * 
      */
     this.state = {
       currentTime: '',
