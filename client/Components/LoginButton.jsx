@@ -1,13 +1,21 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class LoginButton extends Component {
-  render() {
-    return (
-      <button onClick={this.props.authorize} id='loginButton'>
-        Login
-      </button>
-    );
-  }
-}
+const LoginButton = (props) => {
+  return (
+    <button onClick={props.authorize} id='loginButton'>
+      Login
+    </button>
+  );
+};
+
+// class LoginButton extends Component {
+//   render() {
+//     return (
+//       <button onClick={this.props.authorize} id='loginButton'>
+//         Login
+//       </button>
+//     );
+//   }
+// }
 
 export default LoginButton;

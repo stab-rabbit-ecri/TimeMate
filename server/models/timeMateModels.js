@@ -1,5 +1,5 @@
 const { Pool } = require('pg');
-const result = require('dotenv').config();
+require('dotenv').config();
 
 const PG_URI = process.env.URI;
 
