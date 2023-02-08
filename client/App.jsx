@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import LoginPage from './Components/LoginPage.jsx';
 import EmployeePage from './Components/EmployeePage.jsx';
 import './public/styles.css';
@@ -51,6 +51,7 @@ const App = () => {
   };
 
   if (isLoggedIn && role === 'worker') {
+    console.log('emp_id', empId);
     return (
       <EmployeePage
         firstName={firstName}

@@ -148,6 +148,7 @@ employeeController.authorize = (req, res, next) => {
         if (response.rows.length) {
           res.locals.user = response.rows[0]
           res.locals.user.Success = response.rows[0].employee_type
+          console.log('User', res.locals.user);
           return next()
         } else {
         // frontend will check if response.rows is empty
