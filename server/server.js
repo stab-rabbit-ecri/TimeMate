@@ -25,8 +25,17 @@ app.post('/clockin', employeeController.getDate, employeeController.clockIn, (re
   return res.status(200).json(res.locals.entry_id);
 });
 
-app.post('/clockout', employeeController.clockOut, (req,res) => {
-  return res.status(200).json(res.locals.user);
+app.patch('/clockout', employeeController.getDate, employeeController.clockOut, (req,res) => {
+  return res.status(200);
+});
+
+app.post('/currentemphours', employeeController.getHours, (req, res) => {
+  return res.status(200).json({total: res.locals.hours});
+});
+
+app.get('/emphours/users', employeeController.getUsers, (req, res) => {
+  console.log('returning users from get request emphours/users:', res.locals.employees)
+  return res.status(200).json([res.locals.employees]);
 })
 /**
  *

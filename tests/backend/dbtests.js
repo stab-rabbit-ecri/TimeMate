@@ -52,16 +52,7 @@ describe ('database unit tests', () => {
                 expect(result).toHaveProperty('week');
                 expect(result).toHaveProperty('day');
                 expect(result).toHaveProperty('emp_id');
-            }
-                )
-
-                 (serial, not null)
-//  (date)
-//  (date)
-//  (int)
-//  (int)
-//  (int)
-// emp_id
+            })
         })
     })
     describe ('login middleware tests', () => {
