@@ -5,13 +5,13 @@ import './public/styles.css';
 import ManagerPage from './Components/ManagerPage.jsx';
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [role, setRole] = useState('')
-  const [empId, setEmpId,] = useState('')
-  const [firstName, setFirstName] = useState('')
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [role, setRole] = useState('');
+  const [empId, setEmpId] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [totalHours, setTotalHours] = useState(0);
   //function is checking to see if username password exists (sent with payload)
-  const checkCredentials = () =>{
+  const checkCredentials = () => {
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
 
@@ -25,52 +25,46 @@ const App = () => {
       })
       .then((data) => {
         if (data.Success === 'Worker') {
-          setIsLoggedIn(true)
-          setRole('worker')
-          setEmpId(data.emp_id)
-          setFirstName(data.first_name)
-          
+          setIsLoggedIn(true);
+          setRole('worker');
+          setEmpId(data.emp_id);
+          setFirstName(data.first_name);
+          // setTotalHours(data.totalHours) => fix totalHours, see the schema
+          //WHAT IS TOTAL HOURS?
         } else if (data.Success === 'Manager') {
-          setIsLoggedIn(true)
-          setRole('manager')
-          setEmpId(data.emp_id)
-          setFirstName(data.first_name)
-
+          setIsLoggedIn(true);
+          setRole('manager');
+          setEmpId(data.emp_id);
+          setFirstName(data.first_name);
         } else if (data.error) {
           alert('your username/password is incorrect');
         }
       })
       .catch((error) => {
-        console.log(error)
+        console.log(error);
       });
-  }
+  };
 
-  
   const logOut = () => {
-    console.log('Logging Out')
-    setIsLoggedIn(false)
-  }
+    console.log('Logging Out');
+    setIsLoggedIn(false);
+  };
 
-
-  if (this.state.isLoggedIn && this.state.role === 'worker') {
+  if (isLoggedIn && role === 'worker') {
     return (
-        <EmployeePage
-          firstName={this.state.first_name}
-          empId={this.state.emp_id}
-          logOut={this.logOut}
-          totalHours={this.state.totalHours}
-        />
-      );
-      } else if (this.state.isLoggedIn && this.state.role === 'manager') {
-        return <ManagerPage logOut={this.logOut}/>;
-      } else {
-        return <LoginPage authorize={this.checkCredentials} />
-      }
-      
-
-
-
-
+      <EmployeePage
+        firstName={firstName}
+        empId={empId}
+        logOut={logOut}
+        totalHours={totalHours} //WHAT IS TOTAL HOURS?
+      />
+    );
+  } else if (isLoggedIn && role === 'manager') {
+    return <ManagerPage logOut={logOut} />;
+  } else {
+    return <LoginPage authorize={checkCredentials} />;
+  }
+};
 
 // class App extends Component {
 //   constructor(props) {
