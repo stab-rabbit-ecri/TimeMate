@@ -11,4 +11,5 @@ const RoleBased = ({ role }) => {
     </Fragment>
   );
 };
+
 export default RoleBased;

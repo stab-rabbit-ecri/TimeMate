@@ -1,6 +1,6 @@
 import React from 'react';
 
-const logOutButton = (props) => {
+const LogOutButton = (props) => {
   return (
     <button onClick={props.logOut} id='logOutButton'>
       Log Out
@@ -8,4 +8,4 @@ const logOutButton = (props) => {
   );
 };
 
-export default logOutButton;
+export default LogOutButton;
