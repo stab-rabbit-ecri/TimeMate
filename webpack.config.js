@@ -14,8 +14,13 @@ module.exports = {
     }),
   ],
   devServer: {
+    port: 8080,
     proxy: {
       '/login': {
+        target: 'http://localhost:3000/',
+        secure: false,
+      },
+      '/currentemphours': {
         target: 'http://localhost:3000/',
         secure: false,
       },
@@ -40,5 +45,3 @@ module.exports = {
     ],
   },
 };
-
-
