@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 const ClockIn = (props) => {
   return (
@@ -7,15 +7,5 @@ const ClockIn = (props) => {
     </button>
   );
 };
-
-// class ClockIn extends Component {
-//   render() {
-//     return (
-//       <button onClick={props.toggleClockIn} id='clockInButton'>
-//         Clock In
-//       </button>
-//     );
-//   }
-// }
 
 export default ClockIn;

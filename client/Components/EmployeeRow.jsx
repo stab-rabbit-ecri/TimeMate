@@ -2,17 +2,9 @@ import React, { useState, useEffect } from 'react';
 
 const EmployeeRow = () => {
   const [employees, setEmployees] = useState([]);
-  //i want to send a fetch request to retrieve the information
-  // from the backend to fill in the row dynamically
-  //not sure if the addres is correct from where we're making the fetch request to
-  // {
-  //   method: 'GET',
-  //   headers: {'Content-Type': 'application/json'}, //not sure this is the right type
-  //   mode: 'cors',
-  //   body: JSON.stringify({employee, employeeID, hoursWorked}), //I don't know the names of the properties we want, but we want employee name, ID, and hours Worked
-  //   }
+
   useEffect(() => {
-    fetch('/emphours/users')
+    fetch('http://localhost:3000/emphours/users')
       .then((response) => {
         return response.json();
       })
@@ -24,10 +16,12 @@ const EmployeeRow = () => {
         console.log('There is an error in the EmployeeRow get request ', error);
       });
   }, []);
-  console.log(employees[0]);
+
+  console.log('Employee in a Row', employees[0]);
+
   return (
     <div className='justify-self-center'>
-      <table className='table table-borderd text-center justify-self-centered'>
+      <table className='table table-border text-center justify-self-centered'>
         <thead>
           <tr>
             <th>Name</th>
@@ -47,9 +41,6 @@ const EmployeeRow = () => {
           ))}
         </tbody>
       </table>
-      {/* <div id='nameContainer'></div>
-        <div id='hoursContainer'></div>
-        <div id='employeeIdContainer'></div> */}
     </div>
   );
 };
