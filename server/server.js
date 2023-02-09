@@ -7,7 +7,7 @@ const employeeController = require('./controllers/employeeController.js');
 const app = express();
 
 //setting up your port
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 
 app.use(express.json());
 // app.use(express.urlencoded({ extended: false }));

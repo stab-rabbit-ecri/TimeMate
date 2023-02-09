@@ -4,22 +4,24 @@ import ClockOut from './ClockOut.jsx';
 import LogOutButton from './logOutButton.jsx';
 
 const EmployeePage = (props) => {
-  const [currentTime, setCurrentTime] = useState('');
+  const [currentTime, setCurrentTime] = useState(0);
   const [currentAction, setCurrentAction] = useState('');
   const [message, setMessage] = useState('');
-  const [entryID, setEntryID] = useState('');
-  const [totalHours, setTotalHours] = useState('');
+  const [entryID, setEntryID] = useState(0);
+  const [totalHours, setTotalHours] = useState(0);
+  const [date, setDate] = useState('');
 
   const toggleClockIn = (e) => {
     console.log('target', e.target.id);
-    const { time, date } = this.getTime();
+    const { time, date } = getTime();
+    setDate(date);
     if (e.target.id === 'clockInButton') {
       if (currentAction === 'clocked in') {
         setMessage('You already clocked in!');
       } else {
-        setCurrentAction('Clocked in');
+        setCurrentAction('clocked in');
+        console.log('currentAction after clicking log in', currentAction);
         //send post request
-        clockInOut(currentTime, date, currentAction);
         setMessage(`You clocked in at ${currentTime}`);
       }
     } else {
@@ -28,7 +30,7 @@ const EmployeePage = (props) => {
       } else {
         setCurrentAction('clocked out');
         //send post request
-        clockInOut(currentTime, date, currentAction);
+        clockInOut(date);
         setMessage(`You clocked out at ${currentTime}`);
       }
     }
@@ -36,8 +38,11 @@ const EmployeePage = (props) => {
     setTimeout(revealClockProof, 2000);
     setCurrentTime();
     setCurrentAction(currentAction);
-    // setMessage() // => DO WE NEED THIS
   };
+
+  useEffect(() => {
+    clockInOut(date);
+  }, [currentAction]);
 
   const getTime = () => {
     const date = new Date();
@@ -51,7 +56,7 @@ const EmployeePage = (props) => {
       date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes();
 
     const time = `${hours}:${minutes}:${seconds}`;
-
+    console.log('Time', time);
     return { time, date };
   };
 
@@ -63,10 +68,10 @@ const EmployeePage = (props) => {
     return;
   };
 
-  const clockInOut = (date) => {
+  const clockInOut = (str, date) => {
     // August 19, 1975 23:15:30
     // { time: '11:31:06', date: '2023-02-06T16:31:06.474Z', emp_id: 9 }
-    console.log(action);
+    console.log('CurrentAction', currentAction);
     if (currentAction === 'clocked in') {
       console.log('sending fetch request');
       fetch('/clockin', {
@@ -90,7 +95,7 @@ const EmployeePage = (props) => {
         });
     } else if (currentAction === 'clocked out') {
       console.log('entry_id', entry_id);
-      fetch('/clockout', {
+      fetch('http://localhost:3000/clockout', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -112,8 +117,8 @@ const EmployeePage = (props) => {
   };
 
   useEffect(() => {
-    console.log('emp id', props.empId);
-    fetch('/currentemphours', {
+    console.log('EMP_ID IN EMP PAGE', props.empId);
+    fetch('http://localhost:3000/currentemphours', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -153,7 +158,7 @@ const EmployeePage = (props) => {
       </section>
     </section>
   );
-}
+};
 
 // on component did mount, query the database to get hours worked that week
 
