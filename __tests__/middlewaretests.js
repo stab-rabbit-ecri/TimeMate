@@ -1,5 +1,5 @@
-const ec = require('../../server/controllers/employeeController.js');
-const db = require('../../server/models/timeMateModels.js');
+const ec = require('../server/controllers/employeeController.js');
+const db = require('../server/models/timeMateModels.js');
 
 describe('employeeController.authorize middleware tests', () => {
   // before testing, create users to log in

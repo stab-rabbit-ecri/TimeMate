@@ -1,4 +1,4 @@
-const db = require('../../server/models/timeMateModels.js');
+const db = require('../server/models/timeMateModels.js');
 
 describe('database connection tests', () => {
   test('connects to all_employees database', (done) => {
