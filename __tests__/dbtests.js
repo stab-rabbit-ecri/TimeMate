@@ -2,7 +2,7 @@ const db = require('../server/models/timeMateModels.js');
 
 describe('database connection tests', () => {
   test('connects to all_employees database', (done) => {
-    queryText = 'SELECT * FROM all_employees';
+    const queryText = 'SELECT * FROM all_employees';
     db.query(queryText)
       .then((response) => {
         return response.rows[0];
@@ -22,7 +22,7 @@ describe('database connection tests', () => {
       });
   });
   test('connects to timesheet database', (done) => {
-    queryText = 'SELECT * FROM timesheet';
+    const queryText = 'SELECT * FROM timesheet';
     db.query(queryText)
       .then((response) => {
         return response.rows[0];
