@@ -73,15 +73,15 @@ employeeController.clockIn = (req, res, next) => {
     db.query(queryText, values)
     .then((response) => {
         res.locals.entry_id = response.rows[0].entry_id;
-        const queryText2 = 'SELECT clock_in FROM timesheet;';
-        db.query(queryText2)
-        .then((response) => {
-        })
-        .catch((err) => {
-            return next({
-                message: 'err in employee controller clockIn'
-            })
-        })
+        //const queryText2 = 'SELECT clock_in FROM timesheet;';
+        // db.query(queryText2)
+        // .then((response) => {
+        // })
+        // .catch((err) => {
+        //     return next({
+        //         message: 'err in employee controller clockIn'
+        //     })
+        // })
         return next();
     })
     .catch((err) => {
@@ -93,6 +93,7 @@ employeeController.clockIn = (req, res, next) => {
 
 employeeController.clockOut = (req, res, next) => {
   const entry_id = req.body.entry_id;
+  console.log('clockOut controller', entry_id);
   const queryText = 'SELECT clock_in FROM timesheet WHERE entry_id = ($1);';
   const values = [entry_id];
 
