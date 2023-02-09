@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import LoginPage from './Components/LoginPage.jsx';
 import EmployeePage from './Components/EmployeePage.jsx';
 import './public/styles.css';
@@ -7,9 +7,8 @@ import ManagerPage from './Components/ManagerPage.jsx';
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [role, setRole] = useState('');
-  const [empId, setEmpId] = useState('');
+  const [empId, setEmpId] = useState(0);
   const [firstName, setFirstName] = useState('');
-  const [totalHours, setTotalHours] = useState(0);
   //function is checking to see if username password exists (sent with payload)
   const checkCredentials = () => {
     const username = document.getElementById('username').value;
@@ -29,8 +28,6 @@ const App = () => {
           setRole('worker');
           setEmpId(data.emp_id);
           setFirstName(data.first_name);
-          // setTotalHours(data.totalHours) => fix totalHours, see the schema
-          //WHAT IS TOTAL HOURS?
         } else if (data.Success === 'Manager') {
           setIsLoggedIn(true);
           setRole('manager');
@@ -50,13 +47,13 @@ const App = () => {
     setIsLoggedIn(false);
   };
 
-  if (isLoggedIn && role === 'worker') {
+  if (isLoggedIn && role === 'worker' && empId > 0) {
+    console.log('EMP_ID', empId);
     return (
       <EmployeePage
         firstName={firstName}
         empId={empId}
         logOut={logOut}
-        totalHours={totalHours} //WHAT IS TOTAL HOURS?
       />
     );
   } else if (isLoggedIn && role === 'manager') {

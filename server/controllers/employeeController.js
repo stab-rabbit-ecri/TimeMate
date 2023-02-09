@@ -137,6 +137,7 @@ employeeController.clockOut = (req, res, next) => {
 
 employeeController.authorize = (req, res, next) => {
     // get variables from req.body
+    console.log('Request:', req.body);
     const {username, password} = req.body;
     // define query text
     const queryText = 'SELECT employee_type, first_name, emp_id FROM all_employees WHERE username=($1) AND password=($2);';
@@ -145,21 +146,23 @@ employeeController.authorize = (req, res, next) => {
     db.query(queryText, values)
     // .then either return success or return error
     .then((response) => {
-        if (response.rows.length) {
-          res.locals.user = response.rows[0]
-          res.locals.user.Success = response.rows[0].employee_type
-          return next()
-        } else {
-        // frontend will check if response.rows is empty
-          res.locals.user = {error: 'failed login attempt'};
-          return next();
-        }
+      console.log('Response', response);
+      if (response.rows.length) {
+        res.locals.user = response.rows[0]
+        res.locals.user.Success = response.rows[0].employee_type
+        console.log('User', res.locals.user);
+        return next()
+      } else {
+      // frontend will check if response.rows is empty
+        res.locals.user = {error: 'failed login attempt'};
+        return next();
+      }
     })
     // .catch return error
     .catch((err) => {
-        return next({
-            message: 'err in employee controller authorize',
-        })
+      return next({
+          message: 'err in employee controller authorize',
+      })
     })
 }
 
