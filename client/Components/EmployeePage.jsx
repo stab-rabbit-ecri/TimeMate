@@ -14,7 +14,7 @@ const EmployeePage = (props) => {
   // on page load, fetch total hours worked as of login time
   useEffect(() => {
     console.log('EMP_ID IN EMP PAGE', props.empId);
-    fetch('/currentemphours', {
+    fetch('http://localhost:3000/currentemphours', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
