@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import LoginPage from './LoginPage.jsx';
 import EmployeePage from './EmployeePage.jsx';
-import '../public/styles.css';
 import ManagerPage from './ManagerPage.jsx';
 
 const App = () => {
@@ -15,7 +14,7 @@ const App = () => {
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
 
-    fetch('/login', {
+    fetch('http://localhost:3000/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password }),
