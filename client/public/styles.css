@@ -1,0 +1,181 @@
+body {
+  background-color: blanchedalmond;
+}
+
+#clockProofContainer {
+  height: 1.5em;
+  width: 300px;
+  text-align: center;
+}
+
+#clockProof {
+  display: none;
+  color: coral;
+}
+
+#loginPageBox {
+  display: flex;
+  justify-content: center;
+}
+
+#outerLoginBox {
+  display: block;
+  height: 600px;
+  width: 500px;
+  position: absolute;
+  top: 15%;
+}
+
+#loginBox {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  margin-left: -200px;
+  margin-top: -200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(253, 215, 158);
+  box-shadow: 2px 2px 8px rgb(233, 198, 145);
+  border-radius: 25px;
+  flex-direction: column;
+  width: 400px;
+  height: 400px;
+}
+
+#timemate {
+  color: coral;
+  font-size: 50px;
+  font-family: 'Cabin', sans-serif;
+  font-weight: bolder;
+  text-align: center;
+  position: relative;
+  top: 10%;
+  max-height: 100px;
+  background-color: transparent;
+  z-index: 2;
+}
+
+input {
+  margin: 5px;
+  border-radius: 5px;
+  border-style: solid;
+  border-color: rgb(223, 188, 135);
+  height: 1.5em;
+}
+
+#loginButton {
+  border-radius: 5px;
+  margin-top: 5px;
+  width: 150px;
+  height: 30px;
+  color: rgb(137, 122, 104);
+  border: none;
+  background-color: bisque;
+  font-family: Arial, Helvetica, sans-serif;
+}
+#loginButton:hover {
+  background-color: rgb(254, 241, 226);
+}
+
+#logOutButton {
+  text-align: center;
+  border-radius: 5px;
+  margin-top: 5px;
+  width: 200px;
+  height: 50px;
+  margin-top: 100px;
+  color: rgb(137, 122, 104);
+  border: none;
+  background-color: rgb(253, 215, 158);
+  font-family: 'Cabin', sans-serif;
+  font-size: 25px;
+  font-family: Arial, Helvetica, sans-serif;
+  box-shadow: 2px 2px 8px rgb(233, 198, 145);
+}
+
+#logOutButton:hover {
+  background-color: rgb(254, 241, 226);
+  box-shadow: 2px 2px 8px rgb(254, 241, 226);
+}
+
+#welcomeMessage {
+  text-align: center;
+  font-size: 3em;
+  color: coral;
+  font-family: 'Cabin', sans-serif;
+}
+
+#hoursWorked {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 1.2em;
+  color: rgb(204, 101, 64);
+  font-family: 'Cabin', sans-serif;
+}
+
+#clockInButton {
+  text-align: center;
+  border-radius: 5px;
+  width: 500px;
+  height: 100px;
+  color: rgb(137, 122, 104);
+  border: none;
+  font-family: 'Cabin', sans-serif;
+  font-size: 25px;
+  background-color: rgb(253, 215, 158);
+  font-family: Arial, Helvetica, sans-serif;
+  margin-bottom: 50px;
+  box-shadow: 2px 2px 8px rgb(233, 198, 145);
+}
+
+#clockOutButton {
+  text-align: center;
+  border-radius: 5px;
+  margin-top: 5px;
+  width: 500px;
+  height: 100px;
+  color: rgb(137, 122, 104);
+  border: none;
+  background-color: rgb(253, 215, 158);
+  font-family: 'Cabin', sans-serif;
+  font-size: 25px;
+  font-family: Arial, Helvetica, sans-serif;
+  box-shadow: 2px 2px 8px rgb(233, 198, 145);
+}
+
+#clockInButton:hover {
+  background-color: rgb(254, 241, 226);
+  box-shadow: 2px 2px 8px rgb(254, 241, 226);
+}
+
+#clockOutButton:hover {
+  background-color: rgb(254, 241, 226);
+  box-shadow: 2px 2px 8px rgb(254, 241, 226);
+}
+
+#timeButtonParent {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 500px;
+  margin-top: 10%;
+}
+
+#employeePageBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#managerLogOut {
+  text-align: center;
+}
+
+#managerTimeMate {
+  color: coral;
+  text-align: center;
+  font-size: 50px;
+  font-family: 'Cabin', sans-serif;
+}
