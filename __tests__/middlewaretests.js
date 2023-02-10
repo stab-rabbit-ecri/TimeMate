@@ -299,6 +299,7 @@ describe('employeeController.clockOut middleware tests', () => {
     });
   });
 });
+``;
 
 xdescribe('employeeController.getHours middleware tests', () => {
   // before testing, create dummy user with emp_id = -2, then create 2 dummy timesheet entries for this user
@@ -350,5 +351,15 @@ xdescribe('employeeController.getHours middleware tests', () => {
 });
 
 xdescribe('employeeController.getUsers middleware tests', () => {
-  test('gets valid list of users', () => {});
+  let mockRes = { locals: {} };
+  test('saves list of users with expected properties on res.locals', (done) => {
+    ec.getUsers({}, mockRes, () => {
+      expect(mockRes.locals).toHaveProperty('employees');
+      expect(mockRes.locals.employees[0]).toHaveProperty('emp_id');
+      expect(mockRes.locals.employees[0]).toHaveProperty('first_name');
+      expect(mockRes.locals.employees[0]).toHaveProperty('last_name');
+      expect(mockRes.locals.employees[0]).toHaveProperty('hours_worked');
+      done();
+    });
+  });
 });
