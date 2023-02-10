@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import LoginPage from './LoginPage.jsx';
 import EmployeePage from './EmployeePage.jsx';
-import '../public/styles.css';
 import ManagerPage from './ManagerPage.jsx';
 
 const App = () => {

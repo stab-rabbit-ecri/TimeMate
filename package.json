@@ -4,7 +4,7 @@
   "description": "",
   "main": "webpack.config.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --verbose",
     "dev": "concurrently \"nodemon server/server.js\" \"NODE_ENV=development webpack server --open\"",
     "build": "NODE_ENV=production webpack",
     "start": "NODE_ENV=production nodemon server/server.js"
@@ -33,6 +33,7 @@
     "dotenv": "^16.0.3",
     "eslint": "^8.33.0",
     "express": "^4.18.2",
+    "jsdom": "^21.1.0",
     "jsonwebtoken": "^9.0.0",
     "pg": "^8.9.0",
     "pg-hstore": "^2.3.4",
@@ -56,7 +57,10 @@
     "css-loader": "^6.7.3",
     "html-webpack-plugin": "^5.5.0",
     "jest": "^28.1.0",
+    "jest-environment-jsdom": "^29.4.2",
+    "jest-puppeteer": "^7.0.0",
     "nodemon": "^2.0.20",
+    "puppeteer": "^19.6.3",
     "react-test-renderer": "^18.2.0",
     "sass": "^1.58.0",
     "sass-loader": "^13.2.0",
